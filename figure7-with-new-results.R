@@ -15,10 +15,11 @@ lscpu_output <- system("lscpu", intern = TRUE)
 # Get the CPU model name                                                                                                                                                                                                                
 model_name_line <- grep("Model name:", lscpu_output, value = TRUE)                                                                                                                                                                         
 processor_model <- gsub("Model name:\\s*", "", model_name_line)                                                                                                                                                                            
-cleaned_model_name <- gsub("\\.", "", gsub(" ", "", gsub("\\(r\\)", "",                                                                                                                                                                    
-tolower(processor_model))))
+cleaned_model_name <- gsub("\\.", "", gsub(" ", "", gsub("\\(r\\)", "", tolower(processor_model))))
 
-FOLDER <- paste("/home/cc/miniGiraffe/iiswc25", cleaned_model_name, "tuning", sep = "/")
+home_directory <- path.expand("~")
+
+FOLDER <- paste(home_directory, "miniGiraffe/iiswc25", cleaned_model_name, "tuning", sep = "/")
 df <- tibble(SOURCE = list.files(FOLDER,
                                  pattern="csv",
                                  recursive=TRUE,
