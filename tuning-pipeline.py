@@ -83,7 +83,7 @@ except KeyError as e:
     pipeline.logger.error(f"[Main] Error getting machine model {e}")
     model = "unknown"
 
-pipeline.set_machine_folder(os.path.join(model, input_set))
+pipeline.set_machine_folder(os.path.join(model, "tuning", input_set))
 
 # Define array of tests
 batch_size = [128, 256, 512, 1024, 2048]
