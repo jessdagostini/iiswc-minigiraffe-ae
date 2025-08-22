@@ -35,25 +35,21 @@ df %>%
   mutate(Batches = as.integer(Batches),
          Threads = as.integer(Threads),
          Repetition = as.integer(Repetition),
-         CacheSize = as.integer(CacheSize),
-         InputSet = case_when(InputSet == "1000GP" ~ "A-human",
-                              InputSet == "yeast" ~ "B-yeast",
-                              InputSet == "chm13" ~ "D-HPRC",
-                              InputSet == "grch38" ~ "C-HPRC")) -> df.7.1
+         CacheSize = as.integer(CacheSize)) -> df.7.1
+
 df.7.1 %>%
-  group_by(InputSet, Batches, Threads, Scheduler, Repetition, CacheSize, Test) %>%
+  group_by(Machine, InputSet, Batches, Threads, Scheduler, Repetition, CacheSize, Test) %>%
   summarize(Makespan = max(Runtime)) -> df.7.1.makespan
 
 df.7.1.makespan %>%
   ungroup() %>%
-  group_by(InputSet, Threads) %>%
-  filter(Makespan == min(Makespan),
-         Threads != 72) %>%
+  group_by(Machine, InputSet, Threads) %>%
+  filter(Makespan == min(Makespan)) %>%
   mutate(Setting = "tuned") -> df.7.1.best
 
 df.7.1.makespan %>%
   ungroup() %>%
-  group_by(InputSet, Threads) %>%
+  group_by(Machine, InputSet, Threads) %>%
   filter(Batches == 512 & Scheduler == "omp" & CacheSize == 256 & Test == "tuning") %>%
   mutate(Setting = "original") -> df.7.1.original
 
@@ -65,7 +61,7 @@ improvement.7.1 <- df.7.1.compare %>%
   
   # 1. Select only the columns needed for this operation.
   # This defines the "key" (InputSet, Threads) for pairing and the values to reshape.
-  select(InputSet, Threads, Setting, Makespan) %>%
+  select(Machine, InputSet, Threads, Setting, Makespan) %>%
   
   # 2. Reshape the data from a "long" to a "wide" format.
   # This creates separate columns for 'original' and 'tuned' Makespan values.
@@ -88,7 +84,6 @@ df.7.1.compare %>%
   filter(Threads != 72) %>%
   left_join(improvement.7.1, by=c("InputSet", "Threads")) %>%
   select(-original, -tuned) %>%
-  write_csv("./iiswc25/best_results_tuning_intel.csv") %>%
   print() -> df.7.1.compare
 
 dodge_width <- 0.9
@@ -96,7 +91,7 @@ p <- df.7.1.compare %>%
   filter(Threads != 72) %>%
   mutate(CacheSize = as.factor(CacheSize),
          Threads = as.factor(Threads)) %>%
-  mutate(Machine = "chi-intel") %>%
+  #mutate(Machine = "chi-intel") %>%
   ggplot(aes(x=Machine, y=Makespan, fill=Setting)) +
   geom_bar(stat = "identity", width = 0.8, position = "dodge") +
   # Text annotation layer
@@ -130,4 +125,4 @@ ggsave("auto-tuning-results.png", plot = p)
 print("SIMILAR TO TABLE 8 RESULTS")
 df.7.1.compare %>%
   filter(Setting == "tuned") %>%
-  select(InputSet, Batches, Scheduler, CacheSize)
+  select(Machine, InputSet, Batches, Scheduler, CacheSize)

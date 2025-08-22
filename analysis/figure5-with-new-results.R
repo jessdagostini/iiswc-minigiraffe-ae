@@ -35,11 +35,7 @@ df %>%
     unnest(DATA) %>%
     mutate(Batches = as.integer(Batches),
            Threads = as.integer(Threads),
-           Repetition = as.integer(Repetition),
-           InputSet = case_when(InputSet == "1000GP" ~ "A-human",
-                              InputSet == "yeast" ~ "B-yeast",  
-                              InputSet == "chm13" ~ "D-HPRC", 
-                              InputSet == "grch38" ~ "C-HPRC")) -> df.5.1
+           Repetition = as.integer(Repetition)) -> df.5.1
 
 df.5.1 %>%
   filter(Query == "seeds-loop") %>%
@@ -69,14 +65,13 @@ colors_list <- c(
 
 p <- df.5.1.speedup %>%
   filter(Scheduler == "omp") %>%
-  #mutate(Machine = factor(Machine, c("local-intel", "local-amd", "chi-arm", "chi-intel"))) %>%
   ggplot(aes(x=Threads, y=Speedup, color=InputSet)) +
   geom_line() +
   geom_point() +
   geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") +
   scale_color_manual(values=colors_list) + 
   scale_x_continuous("Threads", breaks=df.5.1.speedup$Threads) +
-  #facet_wrap(~Machine, scales="free_x") +
+  #facet_wrap(~Machine, scales="free_x") + # comment out this line if you run in multiple machines
   ylim(0, 100) +
   theme_bw() +
   theme(legend.position = "top",
