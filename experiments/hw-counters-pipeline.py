@@ -45,7 +45,7 @@ except KeyError as e:
     pipeline.logger.error(f"[Main] Error getting machine model {e}")
     model = "unknown"
 
-model = model + "/1"
+model = model + "/hw"
 pipeline.set_machine_folder(model)
 
 # Define array of tests
@@ -53,24 +53,17 @@ batch_size = [512]
 
 cache_size = ["miniGiraffe"]
 
-# scheduler = ['ws', 'omp']
 scheduler = ['omp']
 
-# num_threads = [96, 72, 48, 24, 8, 4, 2, 1]
 num_threads = [1]
 
-repetitions = 1
+repetitions = 3
 
 options = {
     '1000GP_hwmetrics1' : [
         '-m',
         'IPC,L1CACHE,LLCACHE'
-    ],
-    '1000GP_hwmetrics2' : [
-        '-m',
-        'BRANCHES,DTLB,ITLB'
-    ],
-    
+    ]    
 }
 
 # Change to machine folder as current working directory
