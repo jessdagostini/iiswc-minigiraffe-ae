@@ -54,8 +54,7 @@ df.7.1.makespan %>%
   mutate(Setting = "original") -> df.7.1.original
 
 df.7.1.original %>%
-  bind_rows(df.7.1.best) %>%
-  print() -> df.7.1.compare
+  bind_rows(df.7.1.best) -> df.7.1.compare
 
 improvement.7.1 <- df.7.1.compare %>%
   
@@ -81,10 +80,8 @@ improvement.7.1 <- df.7.1.compare %>%
   )
 
 df.7.1.compare %>%
-  filter(Threads != 72) %>%
-  left_join(improvement.7.1, by=c("InputSet", "Threads")) %>%
-  select(-original, -tuned) %>%
-  print() -> df.7.1.compare
+  left_join(improvement.7.1, by=c("Machine", "InputSet", "Threads")) %>%
+  select(-original, -tuned) -> df.7.1.compare
 
 dodge_width <- 0.9
 p <- df.7.1.compare %>%
