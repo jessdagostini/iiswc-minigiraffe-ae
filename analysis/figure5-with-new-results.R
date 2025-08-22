@@ -19,7 +19,7 @@ cleaned_model_name <- gsub("\\.", "", gsub(" ", "", gsub("\\(r\\)", "", tolower(
 
 home_directory <- path.expand("~")
 
-FOLDER <- paste(home_directory, "miniGiraffe/iiswc25", cleaned_model_name, "scalability", sep = "/")
+FOLDER <- paste(home_directory, "iiswc-minigiraffe-ae/results", cleaned_model_name, "scalability", sep = "/")
 df <- tibble(SOURCE = list.files(FOLDER,
                                  pattern="miniGiraffe",
                                  recursive=TRUE,

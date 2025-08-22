@@ -5,7 +5,7 @@ from MiniGiraffePipeline import MiniGiraffePipeline
 
 # Start pipeline
 source_folder = os.path.join(os.getenv('HOME'), "miniGiraffe")
-destination_folder = os.path.join(os.getenv('HOME'), "miniGiraffe", "iiswc25")
+destination_folder = os.path.join(os.getenv('HOME'), "iiswc-minigiraffe-ae", "results")
 pipeline = MiniGiraffePipeline(source_folder, destination_folder)
 
 sequence_path = ""
@@ -18,7 +18,7 @@ pipeline.download_zenodo_record(14990368)
 # Setup paths
 sequence_path = os.path.join(pipeline.destination_folder, "dump_proxy_novaseq.bin")
 gbz_path = os.path.join(pipeline.destination_folder, "1000GPlons_hs38d1_filter.giraffe.gbz")
-input_set = "1000GP"
+input_set = "A-Human"
 
 pipeline.logger.info(f"[Main] Sequence path: {sequence_path}")
 pipeline.logger.info(f"[Main] GBZ path: {gbz_path}")
