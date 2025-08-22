@@ -3,7 +3,10 @@ This package contains scripts and data sets to reproduce the results from the pa
 
 **Authors** - Jessica Imlau Dagostini, Scott Beamer, Tyler Sorensen, Joseph Manzano
 
-Package content
+
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16930195.svg)](http://dx.doi.org/10.5281/zenodo.16930195)
+
+## Package content
 
 - `data-from-paper/` - folder containing the original data used in the publication to generate the core results from the paper
 - `experiments/` - scripts to reproduce the experiments
