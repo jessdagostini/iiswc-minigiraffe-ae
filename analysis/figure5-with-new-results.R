@@ -29,7 +29,7 @@ df
 
 df %>%
     mutate(DATA = map(SOURCE, read_traces)) %>%
-    separate(SOURCE, c("XX1", "XX2", "XX3", "XX4", "XX5", "XX6", "XX7", "EXP"), sep="/") %>%
+    separate(SOURCE, c("XX1", "XX2", "XX3", "XX4", "XX5", "Machine", "XX6", "EXP"), sep="/") %>%
     separate(EXP, c("Batches", "Threads", "Scheduler", "Repetition", "InputSet"), sep="_") %>%
     select(-contains("XX")) %>%
     unnest(DATA) %>%
@@ -39,17 +39,17 @@ df %>%
 
 df.5.1 %>%
   filter(Query == "seeds-loop") %>%
-  group_by(Threads, Scheduler, Repetition, InputSet) %>%
+  group_by(Machine, Threads, Scheduler, Repetition, InputSet) %>%
   summarize(Makespan = max(Runtime)) %>%
   ungroup() %>%
-  group_by(Threads, Scheduler, InputSet) %>%
+  group_by(Machine, Threads, Scheduler, InputSet) %>%
   summarize(AvgMakespan = mean(Makespan),
             MedianMakespan = median(Makespan)) -> df.5.1.makespan
 
 df.5.1.makespan %>%
   ungroup() %>%
   arrange(Threads) %>%
-  group_by(Scheduler, InputSet) %>%
+  group_by(Machine, Scheduler, InputSet) %>%
   mutate(Baseline = first(AvgMakespan),
          Speedup = Baseline/AvgMakespan) %>%
   select(-MedianMakespan) %>%
@@ -79,3 +79,10 @@ p <- df.5.1.speedup %>%
         axis.text.y = element_text(angle = 45, hjust = 1, size=15),
         axis.text.x = element_text(angle = 45, hjust = 1, size=15))
 ggsave("scalability-diff-machines.png", plot = p)
+
+print("Table 7 Results")
+df.5.1.makespan %>%
+  ungroup() %>%
+  group_by(Machine, InputSet) %>%
+  filter(AvgMakespan == min(AvgMakespan)) %>%
+  print()
