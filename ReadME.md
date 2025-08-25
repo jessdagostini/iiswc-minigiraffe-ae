@@ -132,7 +132,7 @@ Given their size, it was difficult to find open solutions to host all input sets
 To create new datasets, users can use a modified version of VG Giraffe that will dump the necessary input data for miniGiraffe.
 This Giraffe version is avaiable as a Docker Image [jessicadagostini/vg-dump:1.0](https://hub.docker.com/repository/docker/jessicadagostini/vg-dump/general).
 
-Using the following command, the application will run the mapping and generate two files: `dump_proxy_seeds.bin` and `dump_proxy_extensions.bin`. The first contains the group of sequences + seeds needed to run the mapping process at miniGiraffe. The second is a file where user can validate if the output of miniGiraffe is coherent and valid with the parent's application.
+Using the following command, the application will run the mapping and generate two files: `dump_miniGiraffe_seeds.bin` and `dump_miniGiraffe_extensions.bin`. The first contains the group of sequences + seeds needed to run the mapping process at miniGiraffe. The second is a file where user can validate if the output of miniGiraffe is coherent and valid with the parent's application.
 
 To collect these files, users should run:
 
