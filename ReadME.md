@@ -4,7 +4,7 @@ This package contains scripts and data sets to reproduce the results from the pa
 **Authors** - Jessica Imlau Dagostini, Scott Beamer, Tyler Sorensen, Joseph Manzano
 
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16930195.svg)](http://dx.doi.org/10.5281/zenodo.16930195)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16930194.svg)](http://dx.doi.org/10.5281/zenodo.16930194)
 
 ## Package content
 
