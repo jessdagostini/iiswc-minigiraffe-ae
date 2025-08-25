@@ -130,14 +130,19 @@ Given their size, it was difficult to find open solutions to host all input sets
 
 ### Generate New Input Sets
 To create new datasets, users can use a modified version of VG Giraffe that will dump the necessary input data for miniGiraffe.
-This Giraffe version is avaiable as a Docker Image [jessicadagostini/vg-dump:1.0](https://hub.docker.com/repository/docker/jessicadagostini/vg-dump/general).
+This Giraffe version is avaiable as a Docker Image [jessicadagostini/vg-dump:1.1](https://hub.docker.com/repository/docker/jessicadagostini/vg-dump/general).
 
 Using the following command, the application will run the mapping and generate two files: `dump_miniGiraffe_seeds.bin` and `dump_miniGiraffe_extensions.bin`. The first contains the group of sequences + seeds needed to run the mapping process at miniGiraffe. The second is a file where user can validate if the output of miniGiraffe is coherent and valid with the parent's application.
 
 To collect these files, users should run:
 
 ```
-docker run -v ~/path/on/host:/path/on/container -w /path/on/container jessicadagostini/vg-dump:1.0 /vg/bin/vg giraffe -Z <.gbz> -m <.min> -d <.dist> -f <.fastq> -b default -t <threads> -p --track-correctness > test.gamcd
+docker run -v ~/path/on/host:/path/on/container \
+    -w /path/on/container \
+    jessicadagostini/vg-dump:1.1 \
+    /vg/bin/vg giraffe \
+    -Z <.gbz> -m <.min> -d <.dist> -f <.fastq> \
+    -b default -t <threads> -p --track-correctness > test.gamcd
 ```
 
 where `path/on/host` should refer to the host path where the files needed are available; `.gbz` refers to the GBWT format where the pangenome graph is stored; `.min` and `.dist` are VG indexes to aid in the mapping process; and the `.fastq` is the file format of the sequences to map.
@@ -145,7 +150,7 @@ where `path/on/host` should refer to the host path where the files needed are av
 ### Input Set Source
 To reproduce the experiments using the same datasets as presented in the paper, users should donwload the following resources
 
-| Input Set | GBWTGraph/pangenome (.gbz) | Mininimizer (.min) | Distance Index (.dist) | Fasta files (.fastq)|
+| Input Set | Pangenome (.gbz) | Mininimizer (.min) | Distance Index (.dist) | Fasta files (.fastq)|
 | :------- | :------: | -------: | ------: | -----: |
 | B-yeast  | [Yeast Graph](https://cgl.gi.ucsc.edu/data/giraffe/mapping/graphs/generic/cactus/yeast_all/yeast_all.gbwt)  | [Yeast min](https://cgl.gi.ucsc.edu/data/giraffe/mapping/graphs/generic/cactus/yeast_all/yeast_all.min)  | [Yeast dist](https://cgl.gi.ucsc.edu/data/giraffe/mapping/graphs/generic/cactus/yeast_all/yeast_all.dist) | [SRR4074257.fastq](https://cgl.gi.ucsc.edu/data/giraffe/mapping/reads/real/yeast/SRR4074257.fastq.gz) |
 | C-HPRC  | [Grch38 Graph](https://s3-us-west-2.amazonaws.com/human-pangenomics/pangenomes/freeze/freeze1/minigraph-cactus/hprc-v1.1-mc-grch38/hprc-v1.1-mc-grch38.gbz)  | [Grch38 min](https://s3-us-west-2.amazonaws.com/human-pangenomics/pangenomes/freeze/freeze1/minigraph-cactus/hprc-v1.1-mc-grch38/hprc-v1.1-mc-grch38.min)  | [Grch38 dist](https://s3-us-west-2.amazonaws.com/human-pangenomics/pangenomes/freeze/freeze1/minigraph-cactus/hprc-v1.1-mc-grch38/hprc-v1.1-mc-grch38.dist) | [D1_S1_L001_R1_004](https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG002/hpp_HG002_NA24385_son_v1/ILMN/NIST_Illumina_2x250bps/D1_S1_L001_R1_004.fastq.gz) <br /> [D1_S1_L001_R2_004](https://s3-us-west-2.amazonaws.com/human-pangenomics/NHGRI_UCSC_panel/HG002/hpp_HG002_NA24385_son_v1/ILMN/NIST_Illumina_2x250bps/D1_S1_L001_R2_004.fastq.gz) | 
