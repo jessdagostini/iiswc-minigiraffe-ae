@@ -1,7 +1,7 @@
 # miniGiraffe Artifact
-This package contains scripts and data sets to reproduce the results from the paper "miniGiraffe: a Pangenome Mapping Proxy App" published on the proceedings of the 2025 IEEE International Symposium on Workload Characterization.
+This package contains scripts and data sets to reproduce the results from the paper "miniGiraffe: a Pangenome Mapping Proxy App" published in the proceedings of the 2025 IEEE International Symposium on Workload Characterization.
 
-**Authors** - Jessica Imlau Dagostini, Scott Beamer, Tyler Sorensen, Joseph Manzano
+**Authors** - Jessica Imlau Dagostini, Joseph Manzano, Tyler Sorensen, Scott Beamer
 
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16930194.svg)](http://dx.doi.org/10.5281/zenodo.16930194)
@@ -16,6 +16,7 @@ This package contains scripts and data sets to reproduce the results from the pa
 Clone this repository/download this package to your local machine/server.
 
 The following packages are needed to run the experiments
+
 ```
 python3-pip
 cmake
@@ -24,18 +25,30 @@ linux-tools-common # (or specific version for linux kernel)
 libcurl4-openssl-dev libssl-dev libfontconfig1-dev  libxml2-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev # (packages to install R-tidyverse)
 ```
 
+*IMPORTANT*: Those using Ubuntu/Debian OS can navigate to the artifact repository and run 
+```bash config-env.sh```. This script will install all necessary dependencies and clone miniGiraffe's repository.
+
 After installing all required packages, run the following script to install python and R-script dependencies
 
 ```bash install-python-and-R-deps.sh```
 
-Finally, clone the miniGiraffe's repository.
+Finally, clone the miniGiraffe's repository within the folder of this artifact
 
 ```git clone --recursive git@github.com:jessdagostini/miniGiraffe.git```
 
-Those using Ubuntu/Debian OS can navigate to the artifact repository and run 
-```bash config-env.sh```. This script will install all needed dependencies and clone miniGiraffe's repository.
-
 Important to mention that, for those using Linux-based OS, to collect perf metrics, the user needs to run `sudo sysctl -w kernel.perf_event_paranoid=-1` to enable collection. This step is done at the `config-env.sh` script for those using Ubuntu/Debian.
+
+Finally, you can enter into `miniGiraffe` folder and follow the steps to get miniGiraffe compiled
+```
+bash install-deps.sh
+make miniGiraffe
+make lower-input
+```
+
+Before running the following experiments, make sure to load the python environment with
+```
+source ./venv/bin/activate
+```
 
 ### 🤖 Reproducing miniGiraffe's hardware validation
 ***Important** - these results are only reproducible on Intel/AMD machine that has support for perf counter and the following metrics: Instructions, Cycles, L1Cache Hit, L1Cache Miss, LL Cache Hit, LL Cache Miss.*
