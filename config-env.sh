@@ -6,4 +6,4 @@ sudo apt-get install -y python3-pip cmake r-base linux-tools-common linux-tools-
 
 sudo sysctl -w kernel.perf_event_paranoid=-1
 
-git clone --recursive https://github.com/jessdagostini/miniGiraffe.git
+cd $HOME && git clone --recursive https://github.com/jessdagostini/miniGiraffe.git

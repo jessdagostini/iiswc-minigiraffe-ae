@@ -30,7 +30,7 @@ pipeline.logger.info(f"[Main] Sequence path: {sequence_path}")
 pipeline.logger.info(f"[Main] GBZ path: {gbz_path}")
 
 # Start moving files to the destination folder
-mG_files = ["lower-input", "miniGiraffe", "perf-utils.so", "time-utils.so", "set-env.sh"]
+mG_files = ["lower-input", "miniGiraffe", "metric-utils.so", "set-env.sh"]
 
 pipeline.remove_existing_files(mG_files)
 

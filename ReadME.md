@@ -32,7 +32,7 @@ After installing all required packages, run the following script to install pyth
 
 ```bash install-python-and-R-deps.sh```
 
-Finally, clone the miniGiraffe's repository within the folder of this artifact
+Finally, clone the miniGiraffe's repository in your `$HOME` directory
 
 ```git clone --recursive git@github.com:jessdagostini/miniGiraffe.git```
 
