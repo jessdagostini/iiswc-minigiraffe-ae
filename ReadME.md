@@ -1,4 +1,7 @@
 # miniGiraffe Artifact
+
+<img src="./img/code_available.png" width="120"><img src="./img/code_reviewed.png" width="140"><img src="./img/code_reproduced.png" width="140">
+
 This package contains scripts and data sets to reproduce the results from the paper "miniGiraffe: a Pangenome Mapping Proxy App" published in the proceedings of the 2025 IEEE International Symposium on Workload Characterization.
 
 **Authors** - Jessica Imlau Dagostini, Joseph Manzano, Tyler Sorensen, Scott Beamer
